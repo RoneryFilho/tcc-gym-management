@@ -26,8 +26,9 @@ public class Equipment implements Serializable {
 
     }
 
-    public Equipment(String name, String description, String propertyNumber, Date purchaseDate, Double originalValue, Double currentValue,
+    public Equipment(String id,String name, String description, String propertyNumber, Date purchaseDate, Double originalValue, Double currentValue,
                      Double depreciationPercentage, Double durability, EquipmentType equipmentType) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.propertyNumber = propertyNumber;
@@ -41,6 +42,10 @@ public class Equipment implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
