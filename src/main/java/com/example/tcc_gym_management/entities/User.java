@@ -20,7 +20,8 @@ public class User implements Serializable {
 
     }
 
-    public User(String name, String document, String email, String phoneNumber) {
+    public User(String id, String name, String document, String email, String phoneNumber) {
+        super();
         this.name = name;
         this.document = document;
         this.email = email;
@@ -29,6 +30,10 @@ public class User implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

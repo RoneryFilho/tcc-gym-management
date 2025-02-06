@@ -9,6 +9,8 @@ public class UserDTO implements Serializable {
     private String id;
     private String name;
     private String email;
+    private String document;
+    private String phoneNumber;
 
     public UserDTO() {
 
@@ -42,5 +44,21 @@ public class UserDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
