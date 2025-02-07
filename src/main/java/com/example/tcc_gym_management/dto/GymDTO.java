@@ -1,24 +1,24 @@
 package com.example.tcc_gym_management.dto;
 
-import com.example.tcc_gym_management.entities.User;
+import com.example.tcc_gym_management.entities.Gym;
 
 import java.io.Serializable;
 
-public class UserDTO implements Serializable {
-
+public class GymDTO implements Serializable {
     private String id;
     private String name;
-    private String email;
     private String document;
+    private String phoneNumber;
 
-    public UserDTO() {
+    public GymDTO() {
 
     }
 
-    public UserDTO(User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.email = user.getEmail();
+    public GymDTO(Gym gym) {
+        this.id = gym.getId();
+        this.name = gym.getName();
+        this.document = gym.getDocument();
+        this.phoneNumber = gym.getPhoneNumber();
     }
 
     public String getId() {
@@ -37,19 +37,19 @@ public class UserDTO implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getDocument() {
         return document;
     }
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

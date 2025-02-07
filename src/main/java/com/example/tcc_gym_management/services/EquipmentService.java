@@ -34,10 +34,10 @@ public class EquipmentService {
         equipmentRepository.deleteById(id);
     }
 
-    public Equipment update(Equipment equipment) {
+    public void update(Equipment equipment) {
         Equipment updatedEquipment = findById(equipment.getId());
         updateData(updatedEquipment, equipment);
-        return equipmentRepository.save(updatedEquipment);
+        equipmentRepository.save(updatedEquipment);
     }
 
     private void updateData(Equipment newEquipment, Equipment equipment) {

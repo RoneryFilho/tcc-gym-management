@@ -1,5 +1,6 @@
 package com.example.tcc_gym_management.entities;
 
+import com.example.tcc_gym_management.dto.GymDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +16,7 @@ public class User implements Serializable {
     private String document;
     private String email;
     private String phoneNumber;
+    private GymDTO gymDTO;
 
     public User() {
 
@@ -66,6 +68,14 @@ public class User implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public GymDTO getGymDTO() {
+        return gymDTO;
+    }
+
+    public void setGymDTO(GymDTO gymDTO) {
+        this.gymDTO = gymDTO;
     }
 
     @Override
