@@ -25,7 +25,8 @@ public class MaintenanceRequest implements Serializable {
 
     }
 
-    public MaintenanceRequest(String title, String description, String observation, UserDTO userDTO) {
+    public MaintenanceRequest(String id,String title, String description, String observation, UserDTO userDTO) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.observation = observation;

@@ -2,8 +2,10 @@ package com.example.tcc_gym_management.config;
 
 import com.example.tcc_gym_management.entities.Equipment;
 import com.example.tcc_gym_management.entities.EquipmentType;
+import com.example.tcc_gym_management.entities.Gym;
 import com.example.tcc_gym_management.entities.User;
 import com.example.tcc_gym_management.repositories.EquipmentRepository;
+import com.example.tcc_gym_management.repositories.GymRepository;
 import com.example.tcc_gym_management.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,9 +20,10 @@ public class Instantiation implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private EquipmentRepository equipmentRepository;
+    @Autowired
+    private GymRepository gymRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -30,19 +33,23 @@ public class Instantiation implements CommandLineRunner {
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         userRepository.deleteAll();
         equipmentRepository.deleteAll();
+        gymRepository.deleteAll();
 
+        Gym bioCorpo = new Gym(null, "BioCorpo", "12456789000110", "18 998765432", "biocorpo@gmail.com", "Rua maneira, 42");
 
-        User ronery = new User(null, "Ronery Filho", "44992603882", "roneryteste@gmail.com", "18996072317");
-        User otavio = new User(null, "Otavio Marin", "12345678910", "otavioteste@gmail.com", "18998765432");
-        User matheus = new User(null, "Matheus Celestino", "10987654321", "matheusteste@gmail.com", "18992345678");
+        gymRepository.save(bioCorpo);
+
+        User ronery = new User(null, "Ronery Filho", "44992603882", "roneryteste@gmail.com", "18996072317", bioCorpo);
+        User otavio = new User(null, "Otavio Marin", "12345678910", "otavioteste@gmail.com", "18998765432", bioCorpo);
+        User matheus = new User(null, "Matheus Celestino", "10987654321", "matheusteste@gmail.com", "18992345678", bioCorpo);
 
         userRepository.saveAll(Arrays.asList(ronery, otavio, matheus));
 
         Equipment haltere = new Equipment(null,"Haltere 5kg", "Haltere 5kg preto da Growth","123ABC", sdf.parse("15/08/2020"),
-                75.00, 50.00, 10.00, 5.0, new EquipmentType("", "Haltere Growth", "Halteres da Growth"));
+                75.00, 50.00, 10.00, 5.0, new EquipmentType("", "Haltere Growth", "Halteres da Growth"), bioCorpo);
 
         Equipment esteira = new Equipment(null,"Esteira Elétrica Philco", "Esteira elétrica da Philco prateada","456DEF", sdf.parse("05/07/2023"),
-                1900.00, 1500.00, 15.00, 1000000.0, new EquipmentType("", "Esteira Philco", "Esteiras Philco"));
+                1900.00, 1500.00, 15.00, 1000000.0, new EquipmentType("", "Esteira Philco", "Esteiras Philco"), bioCorpo);
 
         equipmentRepository.saveAll(Arrays.asList(haltere, esteira));
     }

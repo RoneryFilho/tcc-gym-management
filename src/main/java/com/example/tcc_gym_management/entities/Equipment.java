@@ -1,5 +1,6 @@
 package com.example.tcc_gym_management.entities;
 
+import com.example.tcc_gym_management.dto.GymDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,13 +22,14 @@ public class Equipment implements Serializable {
     private Double depreciationPercentage;
     private Double durability;
     private EquipmentType equipmentType;
+    private GymDTO gymDTO;
 
     public Equipment() {
 
     }
 
     public Equipment(String id,String name, String description, String propertyNumber, Date purchaseDate, Double originalValue, Double currentValue,
-                     Double depreciationPercentage, Double durability, EquipmentType equipmentType) {
+                     Double depreciationPercentage, Double durability, EquipmentType equipmentType, Gym gym) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -38,6 +40,7 @@ public class Equipment implements Serializable {
         this.depreciationPercentage = depreciationPercentage;
         this.durability = durability;
         this.equipmentType = equipmentType;
+        this.gymDTO = new GymDTO(gym);
     }
 
     public String getId() {
@@ -118,6 +121,14 @@ public class Equipment implements Serializable {
 
     public void setEquipmentType(EquipmentType equipmentType) {
         this.equipmentType = equipmentType;
+    }
+
+    public GymDTO getGymDTO() {
+        return gymDTO;
+    }
+
+    public void setGymDTO(GymDTO gymDTO) {
+        this.gymDTO = gymDTO;
     }
 
     @Override

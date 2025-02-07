@@ -21,7 +21,8 @@ public class Gym implements Serializable {
 
     }
 
-    public Gym(String name, String document, String phoneNumber, String email, String address) {
+    public Gym(String id, String name, String document, String phoneNumber, String email, String address) {
+        this.id = id;
         this.name = name;
         this.document = document;
         this.phoneNumber = phoneNumber;

@@ -22,12 +22,14 @@ public class User implements Serializable {
 
     }
 
-    public User(String id, String name, String document, String email, String phoneNumber) {
+    public User(String id, String name, String document, String email, String phoneNumber, Gym gym) {
         super();
+        this.id = id;
         this.name = name;
         this.document = document;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.gymDTO = new GymDTO(gym);
     }
 
     public String getId() {
