@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Document(collection = "maintenance-request")
@@ -20,6 +21,7 @@ public class MaintenanceRequest implements Serializable {
     private UserDTO userDTO;
 
     private List<Equipment> equipments = new ArrayList<>();
+    private List<String> conditions = new ArrayList<>();
 
     public MaintenanceRequest() {
 
@@ -35,6 +37,10 @@ public class MaintenanceRequest implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -75,6 +81,14 @@ public class MaintenanceRequest implements Serializable {
 
     public void setEquipments(List<Equipment> equipments) {
         this.equipments = equipments;
+    }
+
+    public List<String> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(List<String> conditions) {
+        this.conditions = conditions;
     }
 
     @Override
