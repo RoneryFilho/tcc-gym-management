@@ -1,5 +1,6 @@
 package com.example.tcc_gym_management.entities;
 
+import com.example.tcc_gym_management.dto.MaintenanceDTO;
 import com.example.tcc_gym_management.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,6 +19,7 @@ public class MaintenanceRequest implements Serializable {
     private String title;
     private String description;
     private String observation;
+    private MaintenanceDTO maintenanceDTO;
     private UserDTO userDTO;
 
     private List<Equipment> equipments = new ArrayList<>();
@@ -27,12 +29,15 @@ public class MaintenanceRequest implements Serializable {
 
     }
 
-    public MaintenanceRequest(String id,String title, String description, String observation, UserDTO userDTO) {
+    public MaintenanceRequest(String id,String title, String description, String observation, Maintenance maintenance, UserDTO userDTO, List<Equipment> equipments, List<String> conditions) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.observation = observation;
+        this.maintenanceDTO = new MaintenanceDTO(maintenance);
         this.userDTO = userDTO;
+        this.equipments = equipments;
+        this.conditions = conditions;
     }
 
     public String getId() {
