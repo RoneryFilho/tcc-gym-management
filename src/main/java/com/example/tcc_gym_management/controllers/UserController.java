@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(String id){
+    public ResponseEntity<User> findById(@PathVariable String id){
         User user = userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
@@ -48,9 +48,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody User user){
+    public ResponseEntity<Void> update(@RequestBody User user){
         User updatedUser = user;
-        updatedUser.setId(id);
         userService.update(updatedUser);
         return ResponseEntity.noContent().build();
     }
