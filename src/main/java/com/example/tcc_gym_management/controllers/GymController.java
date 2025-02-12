@@ -43,9 +43,8 @@ public class GymController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@PathVariable String id, Gym gym){
+    public ResponseEntity<Void> update(@RequestBody Gym gym){
         Gym updatedGym = gym;
-        updatedGym.setId(id);
         gymService.update(updatedGym);
         return ResponseEntity.noContent().build();
     }
