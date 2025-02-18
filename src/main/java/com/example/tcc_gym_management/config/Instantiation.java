@@ -6,9 +6,13 @@ import com.example.tcc_gym_management.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 
+import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.TimeZone;
 
 @Configuration
@@ -26,11 +30,16 @@ public class Instantiation implements CommandLineRunner {
     private MaintenanceRequestRepository maintenanceRequestRepository;
     @Autowired
     private EquipmentTypeRepository equipmentTypeRepository;
+    @Autowired
+    private MongoTemplate mongoTemplate;
+    @Autowired
+    private MaintenanceRepairServiceRepository maintenanceRepairServiceRepository;
 
     @Override
     public void run(String... args) throws Exception {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         userRepository.deleteAll();
@@ -39,6 +48,7 @@ public class Instantiation implements CommandLineRunner {
         maintenanceRepository.deleteAll();
         maintenanceRequestRepository.deleteAll();
         equipmentTypeRepository.deleteAll();
+        maintenanceRepairServiceRepository.deleteAll();
 
 
         Gym bioCorpo = new Gym(null, "BioCorpo", "12456789000110", "18 998765432", "biocorpo@gmail.com", "Rua maneira, 42");
@@ -83,12 +93,25 @@ public class Instantiation implements CommandLineRunner {
 
         maintenanceRepository.saveAll(Arrays.asList(joseConsertos,mauricioConsertos));
 
-        MaintenanceRequest pedido01 = new MaintenanceRequest(null, "Esteiras Philco e Halteres", "Esteiras contém correias desgastadas e Haltere triscado",
-                "", joseConsertos,new UserDTO(ronery), Arrays.asList(esteira, esteira2, haltere), Arrays.asList("1500 KM", "2800 KM", ""));
+        MaintenanceRequest pedido01 = new MaintenanceRequest(null, (mongoTemplate.count(new Query(), "maintenance-request") + 1),"Esteiras contém correias desgastadas e Haltere triscado",
+                "", joseConsertos, sdf2.format(new Date()), new UserDTO(ronery), Arrays.asList(esteira, esteira2, haltere), Arrays.asList("1500 KM", "2800 KM", ""));
 
-        MaintenanceRequest pedido02 = new MaintenanceRequest(null, "Haltere trincado", "Necessário soldar haltere trincado",
-                "",mauricioConsertos ,new UserDTO(ronery), Arrays.asList(haltere2), Arrays.asList(""));
+        MaintenanceRepairService servico1 = new MaintenanceRepairService(null, joseConsertos, pedido01, Arrays.asList(esteira, esteira2, haltere), "Descrição teste", 1500.00);
 
-        maintenanceRequestRepository.saveAll(Arrays.asList(pedido01, pedido02));
+        pedido01.setServices(Arrays.asList(servico1));
+        maintenanceRepairServiceRepository.save(servico1);
+
+        maintenanceRequestRepository.save(pedido01);
+
+        MaintenanceRequest pedido02 = new MaintenanceRequest(null, (mongoTemplate.count(new Query(), "maintenance-request") + 1), "Necessário soldar haltere trincado",
+                "",mauricioConsertos , sdf2.format(new Date()), new UserDTO(ronery), Arrays.asList(haltere2), Arrays.asList(""));
+
+        MaintenanceRepairService servico2 = new MaintenanceRepairService(null, mauricioConsertos, pedido02, Arrays.asList(haltere2), "Descrição teste", 1976.50);
+
+        maintenanceRepairServiceRepository.save(servico2);
+
+        pedido02.setServices(Arrays.asList(servico2));
+
+        maintenanceRequestRepository.save(pedido02);
     }
 }

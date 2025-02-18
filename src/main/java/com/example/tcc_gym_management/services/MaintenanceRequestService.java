@@ -42,7 +42,7 @@ public class MaintenanceRequestService {
 
     private void updateData(MaintenanceRequest newMaintenanceRequest, MaintenanceRequest oldMaintenanceRequest){
         newMaintenanceRequest.setId(oldMaintenanceRequest.getId());
-        newMaintenanceRequest.setTitle(oldMaintenanceRequest.getTitle());
+        newMaintenanceRequest.setRequestNumber(oldMaintenanceRequest.getRequestNumber());
         newMaintenanceRequest.setDescription(oldMaintenanceRequest.getDescription());
         newMaintenanceRequest.setEquipments(oldMaintenanceRequest.getEquipments());
         newMaintenanceRequest.setConditions(oldMaintenanceRequest.getConditions());

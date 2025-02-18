@@ -6,35 +6,38 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Document(collection = "maintenance-request")
 public class MaintenanceRequest implements Serializable {
 
     @Id
     private String id;
-    private String title;
+    private Long requestNumber;
     private String description;
     private String observation;
+    private String createdAt;
+    private Date updatedAt;
+    private Date closedAt;
     private MaintenanceDTO maintenanceDTO;
     private UserDTO userDTO;
 
     private List<Equipment> equipments = new ArrayList<>();
+    private List<Maintenance> maintenances = new ArrayList<>();
+    private List<MaintenanceRepairService> services = new ArrayList<>();
     private List<String> conditions = new ArrayList<>();
 
     public MaintenanceRequest() {
 
     }
 
-    public MaintenanceRequest(String id,String title, String description, String observation, Maintenance maintenance, UserDTO userDTO, List<Equipment> equipments, List<String> conditions) {
+    public MaintenanceRequest(String id, long requestNumber, String description, String observation, Maintenance maintenance, String createdAt, UserDTO userDTO, List<Equipment> equipments, List<String> conditions) {
         this.id = id;
-        this.title = title;
+        this.requestNumber = requestNumber;
         this.description = description;
         this.observation = observation;
         this.maintenanceDTO = new MaintenanceDTO(maintenance);
+        this.createdAt = createdAt;
         this.userDTO = userDTO;
         this.equipments = equipments;
         this.conditions = conditions;
@@ -46,14 +49,6 @@ public class MaintenanceRequest implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getDescription() {
@@ -94,6 +89,62 @@ public class MaintenanceRequest implements Serializable {
 
     public void setConditions(List<String> conditions) {
         this.conditions = conditions;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Date getClosedAt() {
+        return closedAt;
+    }
+
+    public void setClosedAt(Date closedAt) {
+        this.closedAt = closedAt;
+    }
+
+    public Long getRequestNumber() {
+        return requestNumber;
+    }
+
+    public void setRequestNumber(Long requestNumber) {
+        this.requestNumber = requestNumber;
+    }
+
+    public List<MaintenanceRepairService> getServices() {
+        return services;
+    }
+
+    public void setServices(List<MaintenanceRepairService> services) {
+        this.services = services;
+    }
+
+    public List<Maintenance> getMaintenances() {
+        return maintenances;
+    }
+
+    public void setMaintenances(List<Maintenance> maintenances) {
+        this.maintenances = maintenances;
+    }
+
+    public MaintenanceDTO getMaintenanceDTO() {
+        return maintenanceDTO;
+    }
+
+    public void setMaintenanceDTO(MaintenanceDTO maintenanceDTO) {
+        this.maintenanceDTO = maintenanceDTO;
     }
 
     @Override

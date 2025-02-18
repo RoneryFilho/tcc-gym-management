@@ -28,7 +28,7 @@ public class UserService {
     }
 
     public User findByUserName(String userName){
-        User user = userRepository.findByUsername(userName);
+        User user = userRepository.findByUserName(userName);
         if(user != null){
             return user;
         }
@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public User insert(User user){
-        User userExists = userRepository.findByUsername(user.getUserName());
+        User userExists = userRepository.findByUserName(user.getUserName());
         if(userExists != null){
             throw new IllegalArgumentException("Username já existente");
         }
