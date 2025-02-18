@@ -27,7 +27,19 @@ public class UserService {
         return user.orElseThrow(() -> new ObjectNotFoundException("Objeto User não encontrado"));
     }
 
+    public User findByUserName(String userName){
+        User user = userRepository.findByUsername(userName);
+        if(user != null){
+            return user;
+        }
+        throw new IllegalArgumentException("Usuário não encontrado");
+    }
+
     public User insert(User user){
+        User userExists = userRepository.findByUsername(user.getUserName());
+        if(userExists != null){
+            throw new IllegalArgumentException("Username já existente");
+        }
         return userRepository.insert(user);
     }
 

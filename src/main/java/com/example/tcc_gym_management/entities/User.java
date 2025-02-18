@@ -2,6 +2,7 @@ package com.example.tcc_gym_management.entities;
 
 import com.example.tcc_gym_management.dto.GymDTO;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -13,6 +14,9 @@ public class User implements Serializable {
     @Id
     private String id;
     private String name;
+    @Indexed(unique = true)
+    private String userName;
+    private String password;
     private String document;
     private String email;
     private String phoneNumber;
@@ -22,10 +26,12 @@ public class User implements Serializable {
 
     }
 
-    public User(String id, String name, String document, String email, String phoneNumber, Gym gym) {
+    public User(String id, String name, String userName, String password, String document, String email, String phoneNumber, Gym gym) {
         super();
         this.id = id;
         this.name = name;
+        this.userName = userName;
+        this.password = password;
         this.document = document;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -78,6 +84,22 @@ public class User implements Serializable {
 
     public void setGymDTO(GymDTO gymDTO) {
         this.gymDTO = gymDTO;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

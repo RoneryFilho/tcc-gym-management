@@ -5,6 +5,7 @@ import com.example.tcc_gym_management.entities.MaintenanceRequest;
 import com.example.tcc_gym_management.entities.User;
 import com.example.tcc_gym_management.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody User user){
+        User userExists = userService.findByUserName(user.getUserName());
         userService.insert(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -46,6 +48,22 @@ public class UserController {
         userService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<User> login(String userName, String password){
+        User user = userService.findByUserName(userName);
+
+        if(user != null){
+            if(user.getPassword().toUpperCase().equals(password.toUpperCase())){
+                return ResponseEntity.ok().body(user);
+            }else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        }else {
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> update(@RequestBody User user){
