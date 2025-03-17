@@ -23,7 +23,7 @@ public class MaintenanceRequest implements Serializable {
     private UserDTO userDTO;
 
     private List<Equipment> equipments = new ArrayList<>();
-    private List<Maintenance> maintenances = new ArrayList<>();
+    private List<MaintenanceDTO> maintenances = new ArrayList<>();
     private List<MaintenanceRepairService> services = new ArrayList<>();
     private List<String> conditions = new ArrayList<>();
 
@@ -131,11 +131,11 @@ public class MaintenanceRequest implements Serializable {
         this.services = services;
     }
 
-    public List<Maintenance> getMaintenances() {
+    public List<MaintenanceDTO> getMaintenances() {
         return maintenances;
     }
 
-    public void setMaintenances(List<Maintenance> maintenances) {
+    public void setMaintenances(List<MaintenanceDTO> maintenances) {
         this.maintenances = maintenances;
     }
 

@@ -25,11 +25,17 @@ public class MaintenanceRequestService {
         return maintenanceRequest.orElseThrow(() -> new ObjectNotFoundException("Objeto MaintenanceRequest não encontrado"));
     }
 
+    public MaintenanceRequest findByRequestNumber(Long requestNumber){
+        MaintenanceRequest maintenanceRequest = maintenanceRequestRepository.findByRequestNumber(requestNumber);
+
+        return maintenanceRequest;
+    }
+
     public MaintenanceRequest insert(MaintenanceRequest maintenanceRequest){
         return maintenanceRequestRepository.insert(maintenanceRequest);
     }
 
-    public void deleteById(String id){
+    public void delete(String id){
         findById(id);
         maintenanceRequestRepository.deleteById(id);
     }

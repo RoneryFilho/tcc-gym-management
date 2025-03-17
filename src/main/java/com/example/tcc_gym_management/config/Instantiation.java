@@ -99,19 +99,18 @@ public class Instantiation implements CommandLineRunner {
         MaintenanceRepairService servico1 = new MaintenanceRepairService(null, joseConsertos, pedido01, Arrays.asList(esteira, esteira2, haltere), "Descrição teste", 1500.00);
 
         pedido01.setServices(Arrays.asList(servico1));
-        maintenanceRepairServiceRepository.save(servico1);
-
         maintenanceRequestRepository.save(pedido01);
+        maintenanceRepairServiceRepository.save(servico1);
 
         MaintenanceRequest pedido02 = new MaintenanceRequest(null, (mongoTemplate.count(new Query(), "maintenance-request") + 1), "Necessário soldar haltere trincado",
                 "",mauricioConsertos , sdf2.format(new Date()), new UserDTO(ronery), Arrays.asList(haltere2), Arrays.asList(""));
 
         MaintenanceRepairService servico2 = new MaintenanceRepairService(null, mauricioConsertos, pedido02, Arrays.asList(haltere2), "Descrição teste", 1976.50);
 
-        maintenanceRepairServiceRepository.save(servico2);
-
         pedido02.setServices(Arrays.asList(servico2));
 
         maintenanceRequestRepository.save(pedido02);
+
+        maintenanceRepairServiceRepository.save(servico2);
     }
 }
