@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<User> login(String userName, String password){
+    public ResponseEntity<User> login(@PathVariable String userName, @PathVariable String password){
         User user = userService.findByUserName(userName);
 
         if(user != null){
