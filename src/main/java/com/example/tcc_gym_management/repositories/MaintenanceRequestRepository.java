@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface MaintenanceRequestRepository extends MongoRepository<MaintenanceRequest, String> {
     public MaintenanceRequest findByRequestNumber(Long requestNumber);
-    public MaintenanceRequest findByMaintenance(Maintenance maintenance);
+//    public MaintenanceRequest findByMaintenance(Maintenance maintenance);
 }
