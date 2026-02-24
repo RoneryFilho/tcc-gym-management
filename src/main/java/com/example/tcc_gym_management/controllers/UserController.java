@@ -49,7 +49,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login/{userName}/{password}")
     public ResponseEntity<User> login(@PathVariable String userName, @PathVariable String password){
         User user = userService.findByUserName(userName);
 
