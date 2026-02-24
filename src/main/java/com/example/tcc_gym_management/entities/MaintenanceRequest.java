@@ -120,6 +120,7 @@ public class MaintenanceRequest implements Serializable {
     }
 
     public void setRequestNumber(Long requestNumber) {
+
         this.requestNumber = requestNumber;
     }
 
