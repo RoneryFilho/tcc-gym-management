@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
@@ -16,7 +18,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @Configuration
-public class Instantiation implements CommandLineRunner {
+public class Instantiation implements CommandLineRunner, WebMvcConfigurer {
 
     @Autowired
     private UserRepository userRepository;
@@ -62,7 +64,7 @@ public class Instantiation implements CommandLineRunner {
         equipmentTypeRepository.saveAll((Arrays.asList(esteiraTipo, haltereTipo)));
 
 
-        User ronery = new User(null, "Ronery Filho", "roneryfilho", "t1qegFfH.2T21Qa", "44992603882", "roneryteste@gmail.com", "18996072317", bioCorpo);
+        User ronery = new User(null, "Ronery Filho", "roneryfilho", "7c4a8d09ca3762af61e59520943dc26494f8941b", "44992603882", "roneryteste@gmail.com", "18996072317", bioCorpo);
         User otavio = new User(null, "Otavio Marin", "12345678910", "otavioteste@gmail.com","ermac", "12345gsgHUiueh", "18998765432", bioCorpo);
         User matheus = new User(null, "Matheus Celestino", "theuz", "TGAFI92.Gsdg.", "10987654321", "matheusteste@gmail.com", "18992345678", bioCorpo);
 
@@ -112,5 +114,12 @@ public class Instantiation implements CommandLineRunner {
         maintenanceRequestRepository.save(pedido02);
 
         maintenanceRepairServiceRepository.save(servico2);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT");
     }
 }
