@@ -37,8 +37,11 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> insert(@RequestBody User user){
-        User userExists = userService.findByUserName(user.getUserName());
-        userService.insert(user);
+        try{
+            userService.insert(user);
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.noContent().build();
+        }
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
