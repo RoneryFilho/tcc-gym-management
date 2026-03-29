@@ -1,13 +1,12 @@
 package com.example.tcc_gym_management.controllers;
 
 import com.example.tcc_gym_management.dto.UserDTO;
-import com.example.tcc_gym_management.entities.MaintenanceRequest;
 import com.example.tcc_gym_management.entities.User;
+import com.example.tcc_gym_management.exceptions.DuplicateDataException;
 import com.example.tcc_gym_management.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -39,7 +38,7 @@ public class UserController {
     public ResponseEntity<Void> insert(@RequestBody User user){
         try{
             userService.insert(user);
-        }catch (IllegalArgumentException e){
+        }catch (DuplicateDataException e){
             return ResponseEntity.noContent().build();
         }
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();

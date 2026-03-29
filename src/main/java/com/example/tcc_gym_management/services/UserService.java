@@ -1,13 +1,11 @@
 package com.example.tcc_gym_management.services;
 
-import com.example.tcc_gym_management.dto.UserDTO;
 import com.example.tcc_gym_management.entities.User;
+import com.example.tcc_gym_management.exceptions.DuplicateDataException;
 import com.example.tcc_gym_management.repositories.UserRepository;
-import com.example.tcc_gym_management.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +36,7 @@ public class UserService {
     public User insert(User user){
         User userExists = userRepository.findByUserName(user.getUserName());
         if(userExists != null){
-            throw new IllegalArgumentException("Username já existente");
+            throw new DuplicateDataException("Username já existente");
         }
         return userRepository.insert(user);
     }
