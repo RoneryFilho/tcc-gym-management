@@ -37,7 +37,8 @@ public class MaintenanceRepairServiceService {
     }
 
     public void deleteById(String id){
-        maintenanceRepairServiceRepository.findById(id);
+        maintenanceRepairServiceRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Serviço não encontrado"));
         maintenanceRepairServiceRepository.deleteById(id);
     }
 

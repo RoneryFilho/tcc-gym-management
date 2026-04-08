@@ -27,7 +27,9 @@ public class MaintenanceRequestService {
 
     public MaintenanceRequest findByRequestNumber(Long requestNumber){
         MaintenanceRequest maintenanceRequest = maintenanceRequestRepository.findByRequestNumber(requestNumber);
-
+        if(maintenanceRequest == null){
+            throw new ObjectNotFoundException("MaintenanceRequest não encontrado");
+        }
         return maintenanceRequest;
     }
 

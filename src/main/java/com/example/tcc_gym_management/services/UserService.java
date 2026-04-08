@@ -3,6 +3,7 @@ package com.example.tcc_gym_management.services;
 import com.example.tcc_gym_management.entities.User;
 import com.example.tcc_gym_management.exceptions.DuplicateDataException;
 import com.example.tcc_gym_management.repositories.UserRepository;
+import com.example.tcc_gym_management.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserService {
     public User findById(String id){
         Optional<User> user = userRepository.findById(id);
 
-        return user.orElse(null);
+        return user.orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
     }
 
     public User findByUserName(String userName){
@@ -30,7 +31,7 @@ public class UserService {
         if(user != null){
             return user;
         }
-        throw new IllegalArgumentException("Usuário não encontrado");
+        throw new ObjectNotFoundException("Usuário não encontrado");
     }
 
     public User insert(User user){
