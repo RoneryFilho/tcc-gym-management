@@ -1,5 +1,6 @@
 package com.example.tcc_gym_management.config;
 
+import com.example.tcc_gym_management.dto.GymDTO;
 import com.example.tcc_gym_management.dto.UserDTO;
 import com.example.tcc_gym_management.entities.*;
 import com.example.tcc_gym_management.repositories.*;
@@ -83,7 +84,8 @@ public class Instantiation implements CommandLineRunner, WebMvcConfigurer {
         Equipment haltere2 = new Equipment(null,"Haltere 10kg", "Haltere 10kg Growth","101JKL", sdf.parse("15/08/2022"),
                 90.00, 60.00, 10.00, 5.0, haltereTipo, bioCorpo);
 
-        equipmentRepository.saveAll(Arrays.asList(haltere, esteira));
+        // BUG-005: salvar todos os equipamentos para que nenhum fique com id null
+        equipmentRepository.saveAll(Arrays.asList(haltere, esteira, esteira2, haltere2));
 
 
         Maintenance joseConsertos = new Maintenance(null, "José Consertos", "12456789000110", "14998762345", "joseconsertos@gmail.com",
@@ -92,27 +94,35 @@ public class Instantiation implements CommandLineRunner, WebMvcConfigurer {
         Maintenance mauricioConsertos = new Maintenance(null, "Mauricio Consertos", "43216789000110", "14996782345", "joseconsertos@gmail.com",
                 "Rua calma, 35", "Marcela atendente");
 
+        // BUG-001: definir gymDTO antes de salvar as manutenções
+        joseConsertos.setGymDTO(new GymDTO(bioCorpo));
+        mauricioConsertos.setGymDTO(new GymDTO(bioCorpo));
+        maintenanceRepository.saveAll(Arrays.asList(joseConsertos, mauricioConsertos));
 
-        maintenanceRepository.saveAll(Arrays.asList(joseConsertos,mauricioConsertos));
-
+        // BUG-002: salvar pedido01 antes de criar servico1 para que pedido01 já tenha id
         MaintenanceRequest pedido01 = new MaintenanceRequest(null, (mongoTemplate.count(new Query(), "maintenance-request") + 1),"Esteiras contém correias desgastadas e Haltere triscado",
                 "", joseConsertos, sdf2.format(new Date()), new UserDTO(ronery), Arrays.asList(esteira, esteira2, haltere), Arrays.asList("1500 KM", "2800 KM", ""));
+        maintenanceRequestRepository.save(pedido01);
 
         MaintenanceRepairService servico1 = new MaintenanceRepairService(null, joseConsertos, pedido01, Arrays.asList(esteira, esteira2, haltere), "Descrição teste", 1500.00);
+        // BUG-003: definir finalPrice
+        servico1.setFinalPrice(1650.00);
 
         pedido01.setServices(Arrays.asList(servico1));
         maintenanceRequestRepository.save(pedido01);
         maintenanceRepairServiceRepository.save(servico1);
 
+        // BUG-002: salvar pedido02 antes de criar servico2
         MaintenanceRequest pedido02 = new MaintenanceRequest(null, (mongoTemplate.count(new Query(), "maintenance-request") + 1), "Necessário soldar haltere trincado",
-                "",mauricioConsertos , sdf2.format(new Date()), new UserDTO(ronery), Arrays.asList(haltere2), Arrays.asList(""));
-
-        MaintenanceRepairService servico2 = new MaintenanceRepairService(null, mauricioConsertos, pedido02, Arrays.asList(haltere2), "Descrição teste", 1976.50);
-
-        pedido02.setServices(Arrays.asList(servico2));
-
+                "", mauricioConsertos, sdf2.format(new Date()), new UserDTO(ronery), Arrays.asList(haltere2), Arrays.asList(""));
         maintenanceRequestRepository.save(pedido02);
 
+        MaintenanceRepairService servico2 = new MaintenanceRepairService(null, mauricioConsertos, pedido02, Arrays.asList(haltere2), "Descrição teste", 1976.50);
+        // BUG-003: definir finalPrice
+        servico2.setFinalPrice(2173.15);
+
+        pedido02.setServices(Arrays.asList(servico2));
+        maintenanceRequestRepository.save(pedido02);
         maintenanceRepairServiceRepository.save(servico2);
     }
 

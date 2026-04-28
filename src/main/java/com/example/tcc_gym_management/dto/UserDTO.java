@@ -8,8 +8,11 @@ public class UserDTO implements Serializable {
 
     private String id;
     private String name;
+    private String userName;
     private String email;
     private String document;
+    private String phoneNumber;
+    private GymDTO gymDTO;
 
     public UserDTO() {
 
@@ -18,8 +21,11 @@ public class UserDTO implements Serializable {
     public UserDTO(User user) {
         this.id = user.getId();
         this.name = user.getName();
+        this.userName = user.getUserName();
         this.email = user.getEmail();
         this.document = user.getDocument();
+        this.phoneNumber = user.getPhoneNumber();
+        this.gymDTO = user.getGymDTO();
     }
 
     public String getId() {
@@ -38,6 +44,14 @@ public class UserDTO implements Serializable {
         this.name = name;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -52,5 +66,21 @@ public class UserDTO implements Serializable {
 
     public void setDocument(String document) {
         this.document = document;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public GymDTO getGymDTO() {
+        return gymDTO;
+    }
+
+    public void setGymDTO(GymDTO gymDTO) {
+        this.gymDTO = gymDTO;
     }
 }

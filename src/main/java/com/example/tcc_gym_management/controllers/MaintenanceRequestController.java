@@ -43,9 +43,9 @@ public class MaintenanceRequestController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Void> update(@RequestBody MaintenanceRequest maintenanceRequest) {
-        MaintenanceRequest updatedMaintenanceRequest = maintenanceRequest;
-        maintenanceRequestService.update(updatedMaintenanceRequest);
+    public ResponseEntity<Void> update(@PathVariable String id, @RequestBody MaintenanceRequest maintenanceRequest) {
+        maintenanceRequest.setId(id);
+        maintenanceRequestService.update(maintenanceRequest);
         return ResponseEntity.noContent().build();
     }
 

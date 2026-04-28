@@ -82,6 +82,14 @@ public class MaintenanceRepairService implements Serializable {
         this.finalPrice = finalPrice;
     }
 
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
+    }
+
+    public void setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

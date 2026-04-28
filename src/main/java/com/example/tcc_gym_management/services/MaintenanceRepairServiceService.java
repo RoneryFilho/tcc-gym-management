@@ -55,5 +55,6 @@ public class MaintenanceRepairServiceService {
         newMaintenanceService.setDescription(oldMaintenanceService.getDescription());
         newMaintenanceService.setSubTotal(oldMaintenanceService.getSubTotal());
         newMaintenanceService.setFinalPrice(oldMaintenanceService.getFinalPrice());
+        newMaintenanceService.setEquipmentList(oldMaintenanceService.getEquipmentList());
     }
 }
